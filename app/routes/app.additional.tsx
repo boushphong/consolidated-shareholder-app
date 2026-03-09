@@ -1,8 +1,6 @@
 import { useFetcher } from "react-router";
 import type { ActionFunctionArgs } from "react-router";
 import { authenticate } from "../shopify.server";
-import { useEffect } from "react";
-import { useAppBridge } from "@shopify/app-bridge-react";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const { admin } = await authenticate.admin(request);
@@ -30,8 +28,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function AdditionalPage() {
   const fetcher = useFetcher<typeof action>();
-  const shopify = useAppBridge();
-
   const queryOrders = () => fetcher.submit({}, { method: "POST" });
 
   return (
@@ -52,25 +48,6 @@ export default function AdditionalPage() {
         )}
       </s-section>
 
-      <s-section heading="Multiple pages">
-        <s-paragraph>
-          The app template comes with an additional page which demonstrates how
-          to create multiple pages within app navigation using{" "}
-          <s-link
-            href="https://shopify.dev/docs/apps/tools/app-bridge"
-            target="_blank"
-          >
-            App Bridge
-          </s-link>
-          .
-        </s-paragraph>
-        <s-paragraph>
-          To create your own page and have it show up in the app navigation, add
-          a page inside <code>app/routes</code>, and a link to it in the{" "}
-          <code>&lt;ui-nav-menu&gt;</code> component found in{" "}
-          <code>app/routes/app.jsx</code>.
-        </s-paragraph>
-      </s-section>
       <s-section slot="aside" heading="Resources">
         <s-unordered-list>
           <s-list-item>
